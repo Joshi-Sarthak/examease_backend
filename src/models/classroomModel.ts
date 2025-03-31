@@ -9,5 +9,5 @@ const classroomSchema = new mongoose.Schema({
 	students: [{ type: String }],
 })
 
-export const User =
-	mongoose.models?.Classroom || mongoose.model("User", classroomSchema)
+export const Classroom =
+	mongoose.models?.Classroom || mongoose.model("Classroom", classroomSchema)
