@@ -8,7 +8,7 @@ interface Result {
 	result: number
 }
 
-export const createTest = async (req: Request, res: Response) => {
+export const createTest = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const {
 			testName,
@@ -63,7 +63,7 @@ export const createTest = async (req: Request, res: Response) => {
 	}
 }
 
-export const editTest = async (req: Request, res: Response) => {
+export const editTest = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const {
 			testId,
@@ -119,7 +119,7 @@ export const editTest = async (req: Request, res: Response) => {
 	}
 }
 
-export const deleteTest = async (req: Request, res: Response) => {
+export const deleteTest = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { testId, teacherId } = req.body
 
@@ -155,7 +155,7 @@ export const deleteTest = async (req: Request, res: Response) => {
 	}
 }
 
-export const getTestById = async (req: Request, res: Response) => {
+export const getTestById = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { testId } = req.body
 
@@ -175,7 +175,7 @@ export const getTestById = async (req: Request, res: Response) => {
 	}
 }
 
-export const getTestResults = async (req: Request, res: Response) => {
+export const getTestResults = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { testId } = req.params
 
@@ -213,7 +213,10 @@ export const getTestResults = async (req: Request, res: Response) => {
 	}
 }
 
-export const getDetailedTestResults = async (req: Request, res: Response) => {
+export const getDetailedTestResults = async (
+	req: Request,
+	res: Response
+): Promise<any> => {
 	try {
 		const { testId } = req.params
 
@@ -245,7 +248,7 @@ export const getDetailedTestResults = async (req: Request, res: Response) => {
 	}
 }
 
-export const submitTestResult = async (req: Request, res: Response) => {
+export const submitTestResult = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { testId, studentId, result } = req.body
 

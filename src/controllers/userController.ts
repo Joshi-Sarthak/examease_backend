@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { User } from "../models/userModel.js"
 
-export const editUser = async (req: Request, res: Response) => {
+export const editUser = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const userId = req.body
 		const updates = req.body
@@ -18,7 +18,7 @@ export const editUser = async (req: Request, res: Response) => {
 	}
 }
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { userId } = req.body
 

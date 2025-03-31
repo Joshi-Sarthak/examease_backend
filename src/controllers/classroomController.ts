@@ -7,7 +7,10 @@ const generateClassroomCode = (): string => {
 	).join("")
 }
 
-export const getClassroomsForStudent = async (req: Request, res: Response) => {
+export const getClassroomsForStudent = async (
+	req: Request,
+	res: Response
+): Promise<any> => {
 	try {
 		const { userId } = req.body
 
@@ -23,7 +26,10 @@ export const getClassroomsForStudent = async (req: Request, res: Response) => {
 	}
 }
 
-export const getClassroomsForTeacher = async (req: Request, res: Response) => {
+export const getClassroomsForTeacher = async (
+	req: Request,
+	res: Response
+): Promise<any> => {
 	try {
 		const { userId } = req.body
 
@@ -39,7 +45,7 @@ export const getClassroomsForTeacher = async (req: Request, res: Response) => {
 	}
 }
 
-export const deleteClassroom = async (req: Request, res: Response) => {
+export const deleteClassroom = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { userId, classroomId } = req.body
 
@@ -69,7 +75,7 @@ export const deleteClassroom = async (req: Request, res: Response) => {
 	}
 }
 
-export const leaveClassroom = async (req: Request, res: Response) => {
+export const leaveClassroom = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { userId, classroomId } = req.body
 
@@ -102,7 +108,7 @@ export const leaveClassroom = async (req: Request, res: Response) => {
 	}
 }
 
-export const createClassroom = async (req: Request, res: Response) => {
+export const createClassroom = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { classroomName, teacherId, teacherName } = req.body
 
@@ -130,7 +136,7 @@ export const createClassroom = async (req: Request, res: Response) => {
 	}
 }
 
-export const joinClassroom = async (req: Request, res: Response) => {
+export const joinClassroom = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { userId, classroomCode } = req.body
 
@@ -161,7 +167,7 @@ export const joinClassroom = async (req: Request, res: Response) => {
 	}
 }
 
-export const getClassroomByCode = async (req: Request, res: Response) => {
+export const getClassroomByCode = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { classroomCode } = req.body
 
