@@ -11,25 +11,12 @@ import {
 
 const router = express.Router()
 
-// Get all classrooms a student is part of
-router.post("/student", getClassroomsForStudent)
-
-// Get all classrooms a teacher owns
-router.post("/teacher", getClassroomsForTeacher)
-
-// Create a classroom
+router.get("/student/:userId", getClassroomsForStudent)
+router.get("/teacher/:userId", getClassroomsForTeacher)
 router.post("/create", createClassroom)
-
-// Join a classroom
 router.post("/join", joinClassroom)
-
-// Get a classroom by code
-router.post("/code", getClassroomByCode)
-
-// Leave a classroom
+router.get("/code/:id", getClassroomByCode)
 router.post("/leave", leaveClassroom)
-
-// Delete a classroom
-router.post("/delete", deleteClassroom)
+router.delete("/delete/:userId/:classroomId", deleteClassroom)
 
 export { router as classroomRoutes }

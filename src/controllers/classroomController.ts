@@ -12,7 +12,7 @@ export const getClassroomsForStudent = async (
 	res: Response
 ): Promise<any> => {
 	try {
-		const { userId } = req.body
+		const { userId } = req.params
 
 		if (!userId) {
 			return res.status(400).json({ error: "User ID is required" })
@@ -31,7 +31,7 @@ export const getClassroomsForTeacher = async (
 	res: Response
 ): Promise<any> => {
 	try {
-		const { userId } = req.body
+		const { userId } = req.params
 
 		if (!userId) {
 			return res.status(400).json({ error: "User ID is required" })
@@ -47,7 +47,7 @@ export const getClassroomsForTeacher = async (
 
 export const deleteClassroom = async (req: Request, res: Response): Promise<any> => {
 	try {
-		const { userId, classroomId } = req.body
+		const { userId, classroomId } = req.params
 
 		if (!userId || !classroomId) {
 			return res
@@ -169,13 +169,13 @@ export const joinClassroom = async (req: Request, res: Response): Promise<any> =
 
 export const getClassroomByCode = async (req: Request, res: Response): Promise<any> => {
 	try {
-		const { classroomCode } = req.body
+		const { id } = req.params
 
-		if (!classroomCode) {
+		if (!id) {
 			return res.status(400).json({ error: "Classroom code is required" })
 		}
 
-		const classroom = await Classroom.findOne({ classroomCode })
+		const classroom = await Classroom.findOne({ id })
 
 		if (!classroom) {
 			return res.status(404).json({ error: "Classroom not found" })

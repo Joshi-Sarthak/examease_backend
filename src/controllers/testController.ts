@@ -121,7 +121,7 @@ export const editTest = async (req: Request, res: Response): Promise<any> => {
 
 export const deleteTest = async (req: Request, res: Response): Promise<any> => {
 	try {
-		const { testId, teacherId } = req.body
+		const { testId, teacherId } = req.params
 
 		if (!testId || !teacherId) {
 			return res
@@ -157,7 +157,7 @@ export const deleteTest = async (req: Request, res: Response): Promise<any> => {
 
 export const getTestById = async (req: Request, res: Response): Promise<any> => {
 	try {
-		const { testId } = req.body
+		const { testId } = req.params
 
 		if (!testId) {
 			return res.status(400).json({ error: "Test ID is required" })
