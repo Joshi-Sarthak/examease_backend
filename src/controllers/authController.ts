@@ -5,7 +5,7 @@ import { User } from "../models/userModel.js"
 import { Request, Response } from "express"
 dotenv.config()
 
-const signup = async (req: Request, res: Response) => {
+const signup = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { fullName, username, email, password } = req.body
 
@@ -35,7 +35,7 @@ const signup = async (req: Request, res: Response) => {
 	}
 }
 
-const login = async (req: Request, res: Response) => {
+const login = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { email, password } = req.body
 

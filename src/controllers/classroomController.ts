@@ -160,3 +160,23 @@ export const joinClassroom = async (req: Request, res: Response) => {
 		res.status(500).json({ error: "Internal server error" })
 	}
 }
+
+export const getClassroomByCode = async (req: Request, res: Response) => {
+	try {
+		const { classroomCode } = req.body
+
+		if (!classroomCode) {
+			return res.status(400).json({ error: "Classroom code is required" })
+		}
+
+		const classroom = await Classroom.findOne({ classroomCode })
+
+		if (!classroom) {
+			return res.status(404).json({ error: "Classroom not found" })
+		}
+
+		res.json({ classroom })
+	} catch (error) {
+		res.status(500).json({ error: "Internal server error" })
+	}
+}

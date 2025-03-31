@@ -52,4 +52,4 @@ const testSchema = new mongoose.Schema({
 	classroomId: { type: String, required: true },
 })
 
-export const User = mongoose.models?.Test || mongoose.model("User", testSchema)
+export const Test = mongoose.models?.Test || mongoose.model("Test", testSchema)
