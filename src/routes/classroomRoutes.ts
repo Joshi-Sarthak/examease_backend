@@ -32,4 +32,4 @@ router.post("/leave", leaveClassroom)
 // Delete a classroom
 router.post("/delete", deleteClassroom)
 
-export default router
+export { router as classroomRoutes }

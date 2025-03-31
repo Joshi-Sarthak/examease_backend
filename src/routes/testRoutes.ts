@@ -32,4 +32,4 @@ router.get("/detailed-results/:testId", getDetailedTestResults)
 // Submit test result
 router.post("/submit-result", submitTestResult)
 
-export default router
+export { router as testRoutes }
