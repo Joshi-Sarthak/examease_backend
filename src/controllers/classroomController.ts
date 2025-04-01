@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { Classroom } from "../models/classroomModel.js"
+import { User } from "../models/userModel.js"
 
 const generateClassroomCode = (): string => {
 	return Array.from({ length: 6 }, () =>
@@ -152,6 +153,12 @@ export const joinClassroom = async (req: Request, res: Response): Promise<any> =
 			return res.status(404).json({ error: "Classroom not found" })
 		}
 
+		if (classroom.teacherId === userId) {
+			return res
+				.status(400)
+				.json({ error: "Teachers cannot join their own classroom as students" })
+		}
+
 		if (classroom.students.includes(userId)) {
 			return res
 				.status(400)
@@ -182,6 +189,22 @@ export const getClassroomByCode = async (req: Request, res: Response): Promise<a
 		}
 
 		res.json({ classroom })
+	} catch (error) {
+		res.status(500).json({ error: "Internal server error" })
+	}
+}
+
+export const getStudentNames = async (req: Request, res: Response): Promise<any> => {
+	try {
+		const { studentIds } = req.body
+
+		if (!studentIds || !Array.isArray(studentIds) || studentIds.length === 0) {
+			return res.status(400).json({ error: "A list of student IDs is required" })
+		}
+
+		const students = await User.find({ _id: { $in: studentIds } }, "name")
+
+		res.json({ students })
 	} catch (error) {
 		res.status(500).json({ error: "Internal server error" })
 	}
