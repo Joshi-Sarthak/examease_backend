@@ -161,7 +161,7 @@ export const joinClassroom = async (req: Request, res: Response): Promise<any> =
 		classroom.students.push(userId)
 		await classroom.save()
 
-		res.json({ message: "Successfully joined the classroom" })
+		res.json({ message: "Successfully joined the classroom", classroom })
 	} catch (error) {
 		res.status(500).json({ error: "Internal server error" })
 	}
