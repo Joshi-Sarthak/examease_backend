@@ -272,4 +272,21 @@ export const submitTestResult = async (req: Request, res: Response): Promise<any
 	}
 }
 
+export const getTestsForClassroom = async (
+	req: Request,
+	res: Response
+): Promise<any> => {
+	try {
+		const { classroomId } = req.params
 
+		if (!classroomId) {
+			return res.status(400).json({ error: "Classroom ID is required" })
+		}
+
+		const tests = await Test.find({ classroomId })
+
+		res.json({ tests })
+	} catch (error) {
+		res.status(500).json({ error: "Internal server error" })
+	}
+}

@@ -7,6 +7,7 @@ import {
 	getTestResults,
 	getDetailedTestResults,
 	submitTestResult,
+	getTestsForClassroom,
 } from "../controllers/testController.js"
 
 const router = express.Router()
@@ -18,5 +19,6 @@ router.get("/get/:testId", getTestById)
 router.get("/results/:testId", getTestResults)
 router.get("/detailed-results/:testId", getDetailedTestResults)
 router.post("/submit-result", submitTestResult)
+router.get("/:classroomId", getTestsForClassroom)
 
 export { router as testRoutes }
