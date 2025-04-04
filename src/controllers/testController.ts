@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import { Test } from "../models/testModel.js"
 import { Classroom } from "../models/classroomModel.js"
 import { User } from "../models/userModel.js"
+import mongoose from "mongoose";
 
 interface Result {
 	studentId: string
@@ -18,7 +19,7 @@ export const createTest = async (req: Request, res: Response): Promise<any> => {
 			testTime,
 			classroomId,
 			teacherId,
-		} = req.body
+		} = req.body;
 
 		if (
 			!testName ||
@@ -29,43 +30,52 @@ export const createTest = async (req: Request, res: Response): Promise<any> => {
 			!classroomId ||
 			!teacherId
 		) {
-			return res.status(400).json({ error: "All fields are required" })
+			return res.status(400).json({ error: "All fields are required" });
 		}
 
-		// Check if the classroom exists and the user is the teacher
-		const classroom = await Classroom.findById(classroomId)
+		const startFromDate = new Date(startFrom);
+		const deadlineDate = new Date(deadlineTime);
 
+		if (!mongoose.Types.ObjectId.isValid(classroomId) || !mongoose.Types.ObjectId.isValid(teacherId)) {
+			return res.status(400).json({ error: "Invalid classroomId or teacherId" });
+		}
+
+		const classroom = await Classroom.findById(classroomId);
 		if (!classroom) {
-			return res.status(404).json({ error: "Classroom not found" })
+			return res.status(404).json({ error: "Classroom not found" });
 		}
-
-		if (classroom.teacherId !== teacherId) {
-			return res.status(403).json({
-				error: "You are not authorized to create a test for this classroom",
-			})
+		if (classroom.teacherId.toString() !== teacherId) {
+			return res.status(403).json({ error: "You are not authorized to create a test for this classroom" });
 		}
 
 		const newTest = new Test({
 			testName,
 			questions,
-			startFrom,
-			deadlineTime,
+			startFrom: startFromDate,
+			deadlineTime: deadlineDate,
 			testTime,
 			classroomId,
 			result: [],
-		})
+		});
 
-		Test.create(newTest, (err: any, test: any) => {
-			if (err) {
-				return res.status(500).json({ error: "Internal server error" })
-			}
-		})
+		const validationError = newTest.validateSync();
+		if (validationError) {
+			return res.status(400).json({ error: "Validation failed", details: validationError.message });
+		}
 
-		res.json({ message: "Test created successfully", test: newTest })
-	} catch (error) {
-		res.status(500).json({ error: "Internal server error" })
-	}
-}
+		const savedTest = await newTest.save();
+
+		res.json({ message: "Test created successfully", test: savedTest });
+	} catch (error: unknown) {
+		console.error("Error creating test:", error);
+	
+		if (error instanceof Error) {
+			res.status(500).json({ error: "Internal server error", details: error.message });
+		} else {
+			res.status(500).json({ error: "Internal server error" });
+		}
+	}	
+};
 
 export const editTest = async (req: Request, res: Response): Promise<any> => {
 	try {

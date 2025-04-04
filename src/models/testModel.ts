@@ -3,14 +3,12 @@ import mongoose from "mongoose"
 interface Option {
 	optionText: string
 	optionNumber: number
-	questionId: string
 }
 
 interface Question {
 	questionText: string
 	questionNumber: number
 	options: Option[]
-	testId: string
 	correctOptionIndex: number
 }
 
@@ -27,12 +25,10 @@ const questionSchema = new mongoose.Schema<Question>({
 			new mongoose.Schema<Option>({
 				optionText: { type: String, required: true },
 				optionNumber: { type: Number, required: true },
-				questionId: { type: String, required: true },
 			}),
 		],
 		required: true,
 	},
-	testId: { type: String, required: true },
 	correctOptionIndex: { type: Number, required: true },
 })
 
