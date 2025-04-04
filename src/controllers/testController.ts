@@ -55,7 +55,11 @@ export const createTest = async (req: Request, res: Response): Promise<any> => {
 			result: [],
 		})
 
-		await newTest.save()
+		Test.create(newTest, (err: any, test: any) => {
+			if (err) {
+				return res.status(500).json({ error: "Internal server error" })
+			}
+		})
 
 		res.json({ message: "Test created successfully", test: newTest })
 	} catch (error) {
