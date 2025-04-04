@@ -14,7 +14,7 @@ const router = express.Router()
 
 router.post("/create", createTest)
 router.put("/edit", editTest)
-router.delete("/delete/:testId/:teacheId", deleteTest)
+router.delete("/delete/:testId/:teacherId", deleteTest)
 router.get("/get/:testId", getTestById)
 router.get("/results/:testId", getTestResults)
 router.get("/detailed-results/:testId", getDetailedTestResults)
