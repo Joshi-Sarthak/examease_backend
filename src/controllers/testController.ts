@@ -248,7 +248,7 @@ export const getDetailedTestResults = async (
 			test.result.map(async (r: Result) => {
 				const student = await User.findById(r.studentId)
 				return {
-					studentName: student ? student.name : "Unknown",
+					studentName: student ? student.fullName : "Unknown",
 					score: r.result,
 					totalQuestions: test.questions.length,
 					percentage: (r.result / test.questions.length) * 100,
