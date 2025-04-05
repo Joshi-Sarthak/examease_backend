@@ -34,7 +34,6 @@ const signup = async (req: Request, res: Response): Promise<any> => {
 		res.status(500).json({ error: "Internal server error" })
 	}
 }
-
 const login = async (req: Request, res: Response): Promise<any> => {
 	try {
 		const { email, password } = req.body
